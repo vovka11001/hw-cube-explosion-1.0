@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -16,13 +14,14 @@ public class InputReader : MonoBehaviour
     {
         _camera = Camera.main;
     }
+    
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             _ray = _camera.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(_ray, out _hit, Mathf.Infinity))
+            if (Physics.Raycast(_ray, out _hit, Mathf.Infinity,~0, QueryTriggerInteraction.Ignore))
             {
                 _cubeSplit = _hit.collider.GetComponent<CubeSplit>();
             
