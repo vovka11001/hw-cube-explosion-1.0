@@ -10,13 +10,13 @@ public class InputReader : MonoBehaviour
     private RaycastHit _hit;
     private CubeSplit _cubeSplit;
     
-    public event Action OnHit;
+    public event Action<GameObject> HittedObject;
 
     private void Start()
     {
         _camera = Camera.main;
     }
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -28,7 +28,7 @@ public class InputReader : MonoBehaviour
             
                 if (_cubeSplit != null)
                 {
-                    OnHit?.Invoke();
+                    HittedObject?.Invoke(_hit.collider.gameObject);
                 }
             } 
         }
