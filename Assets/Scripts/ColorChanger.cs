@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class ColorChanger : MonoBehaviour
 {
-   [SerializeField] private CubeSplit _cubeSplit;
-    
+   [SerializeField] private Spawner _spawner;
+
     private void OnTriggerEnter(Collider other)
     {
-        foreach (Rigidbody rigidbody in _cubeSplit.ChildrenObjects)
+        foreach (Rigidbody rigidbody in _spawner.ChildrenObjects)
         {
             if (rigidbody != null)
             {

@@ -2,27 +2,30 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-   [SerializeField] private CubeSplit _cubeSplit;
+   [SerializeField] private Cube _cube;
    [SerializeField] private float _explosionRadius;
-   [SerializeField] float _explosionForce;
+   [SerializeField] private float _explosionForce;
+   [SerializeField] private Spawner _spawner;
 
    private void OnEnable()
    {
-       _cubeSplit.Clonned += Explode;
+        if( _spawner != null )
+            _spawner.Clonned += Explode;
    }
 
    private void OnDisable()
    {
-       _cubeSplit.Clonned -= Explode;
+        if( _spawner != null )
+            _spawner.Clonned -= Explode;
    }
    
    private void Explode()
    {
-       foreach (var childrenObject in _cubeSplit.ChildrenObjects)
+       foreach (var childrenObject in _spawner.ChildrenObjects)
        {
            if (childrenObject != null)
            {
-               childrenObject.AddExplosionForce(_explosionForce,_cubeSplit.ObjectPosition,_explosionRadius);
+               childrenObject.AddExplosionForce(_explosionForce,_cube.transform.position,_explosionRadius);
            }
        }
    }

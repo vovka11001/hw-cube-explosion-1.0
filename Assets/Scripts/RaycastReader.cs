@@ -1,12 +1,12 @@
 using UnityEngine;
 using System;
 
-public class InputReader : MonoBehaviour
+public class RaycastReader : MonoBehaviour
 {
     private Ray _ray;
     private Camera _camera;
     private RaycastHit _hit;
-    private CubeSplit _cubeSplit;
+    private Cube _cube;
     
     public event Action<GameObject> HittedObject;
 
@@ -23,11 +23,11 @@ public class InputReader : MonoBehaviour
 
             if (Physics.Raycast(_ray, out _hit, Mathf.Infinity,~0, QueryTriggerInteraction.Ignore))
             {
-                _cubeSplit = _hit.collider.GetComponent<CubeSplit>();
+                _cube = _hit.collider.GetComponent<Cube>();
             
-                if (_cubeSplit != null)
+                if (_cube != null)
                 {
-                    HittedObject?.Invoke(_hit.collider.gameObject);
+                    HittedObject?.Invoke(_cube.gameObject);
                 }
             } 
         }
