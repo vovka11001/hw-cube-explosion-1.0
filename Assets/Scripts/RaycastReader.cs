@@ -3,12 +3,9 @@ using System;
 
 public class RaycastReader : MonoBehaviour
 {
-    private Ray _ray;
     private Camera _camera;
-    private RaycastHit _hit;
-    private Cube _cube;
     
-    public event Action<GameObject> HittedObject;
+    public event Action<Cube> HittedObject;
 
     private void Start()
     {
@@ -19,15 +16,16 @@ public class RaycastReader : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _ray = _camera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-            if (Physics.Raycast(_ray, out _hit, Mathf.Infinity,~0, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity,~0, QueryTriggerInteraction.Ignore))
             {
-                _cube = _hit.collider.GetComponent<Cube>();
+                Cube cube = hit.collider.GetComponent<Cube>();
             
-                if (_cube != null)
+                if (cube != null)
                 {
-                    HittedObject?.Invoke(_cube.gameObject);
+                    HittedObject?.Invoke(cube);
                 }
             } 
         }

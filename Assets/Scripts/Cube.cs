@@ -2,17 +2,16 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
-    public bool IsRoute { get; private set; } = true;
     public float SplitChance { get; private set; } = 1f;
     private float _decreaseFactor = 0.5f;
 
-    public void ChangeState()
+    public float ChangeChance()
     {
-       IsRoute = false;
+        return SplitChance * _decreaseFactor;
     }
 
-    public void ChangeChance()
+    public void SetChance(float chance)
     {
-        SplitChance *= _decreaseFactor;
+        SplitChance = chance;
     }
 }
