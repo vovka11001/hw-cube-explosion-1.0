@@ -19,13 +19,13 @@ public class Explosion : MonoBehaviour
             _spawner.Clonned -= Explode;
    }
    
-   private void Explode()
+   private void Explode(Vector3 explosionCenter)
    {
        foreach (var childrenObject in _spawner.ChildrenObjects)
        {
            if (childrenObject != null)
            {
-               childrenObject.AddExplosionForce(_explosionForce,_cube.transform.position,_explosionRadius);
+               childrenObject.AddExplosionForce(_explosionForce,explosionCenter,_explosionRadius);
            }
        }
    }

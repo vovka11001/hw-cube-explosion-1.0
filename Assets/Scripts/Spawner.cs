@@ -6,17 +6,16 @@ using Random = UnityEngine.Random;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private RaycastReader _rayCastReader;
-    [SerializeField] private Cube _cube;
+    private Cube _cube;
+    private Cube _newCubeScript;
 
     private int _minObjects = 2;
     private int _maxObjects = 6;
-    private float _decreaseFactor = 0.5f;
-    private static float  _splitChance = 1f;
     private List<Rigidbody> _childrenRigidBody = new List<Rigidbody>();
 
     public IReadOnlyList<Rigidbody> ChildrenObjects => _childrenRigidBody;
 
-    public event Action Clonned;
+    public event Action<Vector3> Clonned;
 
     private void OnEnable()
     {
@@ -30,6 +29,9 @@ public class Spawner : MonoBehaviour
 
     private void Clone(GameObject clickedObject)
     {
+        _cube = clickedObject.GetComponent<Cube>();
+        Vector3 explosionCenter = _cube.transform.position;
+
         float minValue = 0f;
         float maxValue = 1f;
         float randomValue = Random.Range(minValue, maxValue);
@@ -37,18 +39,17 @@ public class Spawner : MonoBehaviour
         if (_cube.IsRoute)
         {
             Split(clickedObject);
-            _cube.ChangeState();
         }
         else
         {
-            if(randomValue <= _splitChance)
+            if(randomValue <= _newCubeScript.SplitChance)
             {
                 Split(clickedObject);
-                _splitChance *= _decreaseFactor;
+                _newCubeScript.ChangeChance();
             }
         }
 
-        Clonned?.Invoke();
+        Clonned?.Invoke(explosionCenter);
         Destroy(clickedObject);
     }
 
@@ -62,6 +63,13 @@ public class Spawner : MonoBehaviour
             GameObject newCube = Instantiate(clickedObject);
             
             newCube.transform.localScale *= dicreaseScale;
+
+            _newCubeScript = newCube.GetComponent<Cube>();
+
+            if (_newCubeScript != null)
+            {
+                _newCubeScript.ChangeState();
+            }
 
             Rigidbody cubeRigidbody = newCube.GetComponent<Rigidbody>();
 

@@ -11,7 +11,7 @@ public class ColorChanger : MonoBehaviour
             if (rigidbody != null)
             {
                 Renderer renderer = rigidbody.GetComponent<Renderer>();
-                
+
                 if (renderer != null)
                 {
                     renderer.material.color = Random.ColorHSV();
