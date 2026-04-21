@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EventHandler : MonoBehaviour
@@ -22,7 +20,7 @@ public class EventHandler : MonoBehaviour
     private void Handler(Cube cube)
     {
         _spawner.Clone(cube);
-        _explosion.Explode(cube);
+        _explosion.ExplodeHandler(cube);
         _colorChanger.Recolor();
     }
 }

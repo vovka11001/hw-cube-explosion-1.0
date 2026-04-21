@@ -6,11 +6,12 @@ using Random = UnityEngine.Random;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private RaycastReader _rayCastReader;
-
+    
     private int _minObjects = 2;
     private int _maxObjects = 6;
     private List<Rigidbody> _childrenRigidBody = new List<Rigidbody>();
     public IReadOnlyList<Rigidbody> ChildrenObjects => _childrenRigidBody;
+    
     public void Clone(Cube cube)
     {
         float minValue = 0f;
@@ -20,6 +21,10 @@ public class Spawner : MonoBehaviour
         if (randomValue <= cube.SplitChance)
         {
             Split(cube);
+        }
+        else
+        {
+            cube.ChangeState();
         }
 
         Destroy(cube.gameObject);
@@ -41,6 +46,7 @@ public class Spawner : MonoBehaviour
             if (newCubeScript != null)
             {
                 newCubeScript.SetChance(cube.ChangeChance());
+                newCubeScript.IncreaseScale();
             }
 
             Rigidbody cubeRigidbody = newCube.GetComponent<Rigidbody>();
