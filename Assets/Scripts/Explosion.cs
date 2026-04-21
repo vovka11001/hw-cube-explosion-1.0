@@ -19,7 +19,7 @@ public class Explosion : MonoBehaviour
 
     private void ExplodeAll(Cube cube)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(cube.transform.position, _explosionRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(cube.transform.position, _explosionRadius * cube.Scale);
 
         foreach (var hitCollider in hitColliders)
         {
