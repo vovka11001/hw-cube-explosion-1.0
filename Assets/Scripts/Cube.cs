@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
-    private float _decreaseFactor = 0.5f;
     public float SplitChance { get; private set; } = 1f;
     public bool IsSplit { get; private set; } = true;
-    public int Scale { get; private set; } = 1;
+    public int IncreaseScaleFactor { get; private set; } = 2;
+    
+    private float _decreaseFactor = 0.5f;
 
     public float ChangeChance()
     {
@@ -22,8 +23,8 @@ public class Cube : MonoBehaviour
         IsSplit = false;
     }
 
-    public void IncreaseScale()
+    public void IncreaseFactor()
     {
-        Scale++;
+        IncreaseScaleFactor++;
     }
 }

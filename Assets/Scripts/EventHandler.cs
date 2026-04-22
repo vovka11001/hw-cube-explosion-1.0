@@ -20,7 +20,7 @@ public class EventHandler : MonoBehaviour
     private void Handler(Cube cube)
     {
         _spawner.Clone(cube);
-        _explosion.ExplodeHandler(cube);
-        _colorChanger.Recolor();
+        _explosion.ExplodeHandler(cube,_spawner.ChildrenObjects);
+        _colorChanger.Recolor(_spawner.ChildrenObjects);
     }
 }

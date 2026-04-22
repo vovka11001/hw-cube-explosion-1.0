@@ -1,11 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ColorChanger : MonoBehaviour
 {
-    [SerializeField] private Spawner _spawner;
-    public void Recolor()
+    public void Recolor(IReadOnlyList<Rigidbody> objects)
     {
-        foreach (var rigidbody in _spawner.ChildrenObjects)
+        foreach (var rigidbody in objects)
         {
             if (rigidbody != null)
             {

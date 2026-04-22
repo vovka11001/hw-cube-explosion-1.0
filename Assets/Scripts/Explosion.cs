@@ -1,14 +1,14 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Explosion : MonoBehaviour
 {
     [SerializeField] private float _explosionRadius;
     [SerializeField] private float _explosionForce;
-    [SerializeField] private Spawner _spawner;
 
-    private void ExplodeChildrens(Cube cube)
+    private void ExplodeChildrens(Cube cube, IReadOnlyList<Rigidbody> objets)
     {
-        foreach (var childrenObject in _spawner.ChildrenObjects)
+        foreach (var childrenObject in objets)
         {
             if (childrenObject != null)
             {
@@ -19,7 +19,7 @@ public class Explosion : MonoBehaviour
 
     private void ExplodeAll(Cube cube)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(cube.transform.position, _explosionRadius * cube.Scale);
+        Collider[] hitColliders = Physics.OverlapSphere(cube.transform.position, _explosionRadius * cube.IncreaseScaleFactor);
 
         foreach (var hitCollider in hitColliders)
         {
@@ -27,16 +27,16 @@ public class Explosion : MonoBehaviour
 
             if (rigidbody != null)
             {
-                rigidbody.AddExplosionForce(_explosionForce * cube.Scale,cube.transform.position,_explosionRadius * cube.Scale);
+                rigidbody.AddExplosionForce(_explosionForce * cube.IncreaseScaleFactor,cube.transform.position,_explosionRadius * cube.IncreaseScaleFactor);
             }
         }
     }
 
-    public void ExplodeHandler(Cube cube)
+    public void ExplodeHandler(Cube cube,IReadOnlyList<Rigidbody> objets)
     {
         if(cube.IsSplit)
         {
-            ExplodeChildrens(cube);
+            ExplodeChildrens(cube,objets);
         }
         else
         {

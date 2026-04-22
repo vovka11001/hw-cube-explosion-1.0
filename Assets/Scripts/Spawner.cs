@@ -32,6 +32,8 @@ public class Spawner : MonoBehaviour
 
     private void Split(Cube cube)
     {
+        _childrenRigidBody.Clear();
+        
         int numberOfObjects = GetRandomRange();
         float dicreaseScale = 0.5f;
 
@@ -46,7 +48,7 @@ public class Spawner : MonoBehaviour
             if (newCubeScript != null)
             {
                 newCubeScript.SetChance(cube.ChangeChance());
-                newCubeScript.IncreaseScale();
+                newCubeScript.IncreaseFactor();
             }
 
             Rigidbody cubeRigidbody = newCube.GetComponent<Rigidbody>();
