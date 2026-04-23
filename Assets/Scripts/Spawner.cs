@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -10,27 +9,8 @@ public class Spawner : MonoBehaviour
     private int _minObjects = 2;
     private int _maxObjects = 6;
     private List<Rigidbody> _childrenRigidBody = new List<Rigidbody>();
-    public IReadOnlyList<Rigidbody> ChildrenObjects => _childrenRigidBody;
-    
-    public void Clone(Cube cube)
-    {
-        float minValue = 0f;
-        float maxValue = 1f;
-        float randomValue = Random.Range(minValue, maxValue);
 
-        if (randomValue <= cube.SplitChance)
-        {
-            Split(cube);
-        }
-        else
-        {
-            cube.ChangeState();
-        }
-
-        Destroy(cube.gameObject);
-    }
-
-    private void Split(Cube cube)
+    public List<Rigidbody> Split(Cube cube)
     {
         _childrenRigidBody.Clear();
         
@@ -58,6 +38,8 @@ public class Spawner : MonoBehaviour
                 _childrenRigidBody.Add(cubeRigidbody);
             }
         }
+        
+        return _childrenRigidBody;
     }
 
     private int GetRandomRange()

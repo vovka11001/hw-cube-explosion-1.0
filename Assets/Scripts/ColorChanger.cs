@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class ColorChanger : MonoBehaviour
 {
-    public void Recolor(IReadOnlyList<Rigidbody> objects)
+    public void Recolor(List<Rigidbody> objects)
     {
         foreach (var rigidbody in objects)
         {

@@ -4,7 +4,6 @@ using System;
 public class RaycastReader : MonoBehaviour
 {
     private Camera _camera;
-    
     public event Action<Cube> HittedObject;
 
     private void Start()

@@ -19,8 +19,23 @@ public class EventHandler : MonoBehaviour
 
     private void Handler(Cube cube)
     {
-        _spawner.Clone(cube);
-        _explosion.ExplodeHandler(cube,_spawner.ChildrenObjects);
-        _colorChanger.Recolor(_spawner.ChildrenObjects);
+        float minValue = 0f;
+        float maxValue = 1f;
+        float randomValue = Random.Range(minValue, maxValue);
+
+        if (randomValue <= cube.SplitChance)
+        {
+            var newCubes = _spawner.Split(cube);
+            
+            _explosion.ExplodeChildrens(cube,newCubes);
+            _colorChanger.Recolor(newCubes);
+        }
+        else
+        {
+            Destroy(cube.gameObject);
+            _explosion.ExplodeAll(cube);
+        }
+        
+        Destroy(cube.gameObject);
     }
 }

@@ -6,9 +6,9 @@ public class Explosion : MonoBehaviour
     [SerializeField] private float _explosionRadius;
     [SerializeField] private float _explosionForce;
 
-    private void ExplodeChildrens(Cube cube, IReadOnlyList<Rigidbody> objets)
+    public void ExplodeChildrens(Cube cube, List<Rigidbody> childrenObjects)
     {
-        foreach (var childrenObject in objets)
+        foreach (var childrenObject in childrenObjects)
         {
             if (childrenObject != null)
             {
@@ -17,7 +17,7 @@ public class Explosion : MonoBehaviour
         }
     }
 
-    private void ExplodeAll(Cube cube)
+    public void ExplodeAll(Cube cube)
     {
         Collider[] hitColliders = Physics.OverlapSphere(cube.transform.position, _explosionRadius * cube.IncreaseScaleFactor);
 
@@ -29,18 +29,6 @@ public class Explosion : MonoBehaviour
             {
                 rigidbody.AddExplosionForce(_explosionForce * cube.IncreaseScaleFactor,cube.transform.position,_explosionRadius * cube.IncreaseScaleFactor);
             }
-        }
-    }
-
-    public void ExplodeHandler(Cube cube,IReadOnlyList<Rigidbody> objets)
-    {
-        if(cube.IsSplit)
-        {
-            ExplodeChildrens(cube,objets);
-        }
-        else
-        {
-            ExplodeAll(cube);
         }
     }
 }
